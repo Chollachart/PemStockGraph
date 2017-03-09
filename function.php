@@ -1,11 +1,14 @@
 <?php
 class db_class{
+	public function __construct(){
+
+	}
 	public function connect_db()
 	{
-		$serverName = "localhost";
-		$userName = "sa";
-		$userPassword = "PreciseI$";
-		$dbName = "FPI_new";
+		$serverName = "192.168.10.4\EXACTDB";
+		$userName = "admin_prod";
+		$userPassword = "PreciseI$#910";
+		$dbName = "001";
 		$conn = new PDO("sqlsrv:server=".$serverName." ; Database = ".$dbName, $userName, $userPassword);
 		$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		return $conn;

@@ -1,4 +1,4 @@
-<div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+<div id="container" style="min-width:50%; max-width: 90%; height:75%; margin: 0 auto"></div>
 <script type="text/javascript">
 	Highcharts.chart('container', {
     chart: {
@@ -22,7 +22,7 @@
           width: 2 // Width of the line    
   			}],
         title: {
-            text: 'Total fruit consumption'
+            text: 'Total Item in Stock'
         }
     },
     legend: {
