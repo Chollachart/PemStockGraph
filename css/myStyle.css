@@ -1,4 +1,16 @@
 .top-tap{
 	height: 40px;
-	background-color: #66CCFF;
+	padding: 10px;
+}
+div.inner-content{
+	padding: 10px;
+}
+div.content{
+	border-left:thin solid #DDD;
+	border-right:thin solid #DDD;
+	border-bottom:thin solid #DDD;
+}
+div.content{
+	padding: 15px;
+	min-height: 80%;
 }
