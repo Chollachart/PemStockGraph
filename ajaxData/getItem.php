@@ -4,8 +4,9 @@ $arr_return = array();
 
 $obj_db =  new db_class();
 $query_string = "select tb.* from (SELECT 
-	  g.[artcode] as Itemcode
-	  ,i.[Description]
+   g.[artcode] as Itemcode
+   ,i.[Description]
+   ,i.packagedescription
     ,CONVERT(DECIMAL(18,2),(SUM(CASE WHEN g.[warehouse] = 'WH02' AND g.unitcode = 'PC' THEN g.[aantal] ELSE 0 END))) as WH02_PC
     ,CONVERT(DECIMAL(18,2),(SUM(CASE WHEN g.[warehouse] = 'WH02' AND g.unitcode = 'SET' THEN g.[aantal] ELSE 0 END))) as WH02_SET
     ,CONVERT(DECIMAL(18,2),(SUM(CASE WHEN g.[warehouse] = 'W103' AND g.unitcode = 'PC' THEN g.[aantal] ELSE 0 END))) as W103_PC
@@ -14,7 +15,11 @@ $query_string = "select tb.* from (SELECT
   inner join [items] i on g.artcode = i.Itemcode
   where g.warehouse in ('W103','WH02')
   and g.unitcode in ('PC','SET')
-  group by g.artcode,i.[Description]
+  and g.transtype = 'N' 
+  AND g.reknr = 117300
+  AND i.Assortment = 100
+  AND i.Condition = 'A'
+  group by g.artcode,i.[Description],i.packagedescription
 
   ) tb order by tb.Itemcode";
 $params = NULL;  
