@@ -52,8 +52,8 @@ function getContent(fileName,itemData){
 }
 
 function get_graph(itemData){
-    $(".content").html('<div id="graph_container" style="min-width:50%; max-width: 90%; min-height:100%; margin: 0 auto"></div>');
-     
+    $(".content").html('<div id="graph_container" style="min-width:50%; max-width: 90%; min-height:20000%; margin: 0 auto"></div>');
+     console.log(itemData);
     Highcharts.chart('graph_container', {
     chart: {
         type: 'bar'
@@ -88,11 +88,17 @@ function get_graph(itemData){
         }
     },
     series: [{
-        name: 'John',
-        data: [50, 30, 40, 70, 20,50, 30, 40, 70, 20]
+        name: 'WH02',
+        turboThreshold: 10000,
+        data: get_plot_data_array('WH02',itemData)
+        //get_plot_data_array('WH02',itemData)
+        
     }, {
-        name: 'Jane',
-        data: [20, 20, 30, 20, 10,50, 30, 40, 70, 20]
+        name: 'W103',
+        turboThreshold: 10000,
+        data: get_plot_data_array('W103',itemData)
+        //get_plot_data_array('W103',itemData)
+        
     }]
 });
 $(".highcharts-credits").hide();
@@ -106,5 +112,10 @@ function get_itemcode_array(itemData){
       return arr_item_all;
 }
 function get_plot_data_array(div,itemData){
-      
+      var arr_plot_all = [];
+      itemData.forEach(function(element, index, array) {
+            arr_plot_all.push(parseFloat((element[div+'_PC'])));
+      });
+      console.log(arr_plot_all);
+      return arr_plot_all;
 }
