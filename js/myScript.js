@@ -31,8 +31,9 @@ function getItemData(){
     }); 
 }
 function getContent(fileName,itemData){
-	if(fileName=="getGraph"){
-            get_graph(itemData);
+	if(fileName=="getGraph"){    
+            var item_all_array = get_itemcode_array(itemData);
+            get_graph(item_all_array);
       }else{
             $.ajax({
                   url: "ajaxData/"+fileName+".php",
@@ -51,9 +52,13 @@ function getContent(fileName,itemData){
       }
 }
 
-function get_graph(itemData){
-    $(".content").html('<div id="graph_container" style="min-width:50%; max-width: 90%; min-height:20000%; margin: 0 auto"></div>');
-     console.log(itemData);
+function get_graph(item_all_array){
+    var itemcode_arr = item_all_array[0];
+    var WH02_arr = item_all_array[1];
+    var W103_arr = item_all_array[2];
+    var set_height = itemcode_arr.length;
+    $(".content").html('<div id="graph_container" style="min-width:50%; max-width: 90%; min-height:'+(set_height*30)+'px; margin: 0 auto"></div>');
+    // console.log(itemData);
     Highcharts.chart('graph_container', {
     chart: {
         type: 'bar'
@@ -63,7 +68,7 @@ function get_graph(itemData){
     },
     xAxis: {
             
-        categories: get_itemcode_array(itemData)
+        categories: itemcode_arr
         
     },
     yAxis: {
@@ -90,15 +95,11 @@ function get_graph(itemData){
     series: [{
         name: 'WH02',
         turboThreshold: 10000,
-        data: get_plot_data_array('WH02',itemData)
-        //get_plot_data_array('WH02',itemData)
-        
+        data: WH02_arr
     }, {
         name: 'W103',
         turboThreshold: 10000,
-        data: get_plot_data_array('W103',itemData)
-        //get_plot_data_array('W103',itemData)
-        
+        data: W103_arr
     }]
 });
 $(".highcharts-credits").hide();
@@ -106,16 +107,12 @@ $(".highcharts-credits").hide();
 
 function get_itemcode_array(itemData){
       var arr_item_all = [];
+      var arr_item = []; var arr_WH02 = []; var arr_W103 = []; 
       itemData.forEach(function(element, index, array) {
-            arr_item_all.push(element['Itemcode']);
+            arr_item.push(element['Itemcode']);
+            arr_WH02.push(parseFloat((element['WH02_PC']))); 
+            arr_W103.push(parseFloat((element['W103_PC'])));
       });
+      arr_item_all.push(arr_item); arr_item_all.push(arr_WH02); arr_item_all.push(arr_W103);
       return arr_item_all;
-}
-function get_plot_data_array(div,itemData){
-      var arr_plot_all = [];
-      itemData.forEach(function(element, index, array) {
-            arr_plot_all.push(parseFloat((element[div+'_PC'])));
-      });
-      console.log(arr_plot_all);
-      return arr_plot_all;
 }
