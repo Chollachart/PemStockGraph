@@ -12,6 +12,22 @@
 		</tr>
 	</thead>
 	<tbody>
-		
+	<?php
+		$i=0;
+		while($i<sizeof($_POST['itemData'])){
+			$row_data = $_POST['itemData'][$i];
+			echo '<tr>';
+				echo '<td>'.($i+1).'</td>';
+				echo '<td>'.$row_data['Itemcode'].'</td>';
+				echo '<td>'.$row_data['Description'].'</td>';
+				echo '<td>'.number_format($row_data['WH02_PC'],2).'</td>';
+				echo '<td>'.number_format($row_data['WH02_SET'],2).'</td>';
+				echo '<td>'.number_format($row_data['W103_PC'],2).'</td>';
+				echo '<td>'.number_format($row_data['W103_SET'],2).'</td>';
+				echo '<td></td>';
+			echo '</tr>';
+			$i++;
+		}
+	?>		
 	</tbody>
 </table>
