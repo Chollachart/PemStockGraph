@@ -107,12 +107,21 @@ $(".highcharts-credits").hide();
 
 function get_itemcode_array(itemData){
       var arr_item_all = [];
-      var arr_item = []; var arr_WH02 = []; var arr_W103 = []; 
+      var arr_item = []; var arr_WH02 = []; var arr_W103 = []; var arr_USEPERSET = []; 
       itemData.forEach(function(element, index, array) {
             arr_item.push(element['Itemcode']);
-            arr_WH02.push(parseFloat((element['WH02_PC']))); 
-            arr_W103.push(parseFloat((element['W103_PC'])));
+            arr_USEPERSET.push(element['USE_PER_SET']);
+            if(element['USE_PER_SET']!="0"&&element['USE_PER_SET']!=null){
+              var WH02_SET = parseFloat(parseFloat(element['WH02_PC'])/parseFloat(element['USE_PER_SET']));
+              var W103_SET = parseFloat(parseFloat(element['W103_PC'])/parseFloat(element['USE_PER_SET']));
+              arr_WH02.push(WH02_SET); 
+              arr_W103.push(W103_SET);
+            }else{
+              arr_WH02.push(0); 
+              arr_W103.push(0);
+            }
       });
-      arr_item_all.push(arr_item); arr_item_all.push(arr_WH02); arr_item_all.push(arr_W103);
+      arr_item_all.push(arr_item); arr_item_all.push(arr_WH02); arr_item_all.push(arr_W103); arr_item_all.push(arr_USEPERSET);
+      console.log(arr_item_all);
       return arr_item_all;
 }

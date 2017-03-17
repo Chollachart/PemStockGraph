@@ -21,10 +21,20 @@
 				echo '<td>'.$row_data['Itemcode'].'</td>';
 				echo '<td>'.$row_data['Description'].'</td>';
 				echo '<td>'.number_format($row_data['WH02_PC'],2).'</td>';
-				echo '<td>'.number_format($row_data['WH02_SET'],2).'</td>';
+				echo '<td>';
+					if($row_data['USE_PER_SET']!=NULL&&$row_data['USE_PER_SET']!=0){
+						echo number_format(($row_data['WH02_PC']/$row_data['USE_PER_SET']),2);
+					}
+				echo '</td>';
 				echo '<td>'.number_format($row_data['W103_PC'],2).'</td>';
-				echo '<td>'.number_format($row_data['W103_SET'],2).'</td>';
-				echo '<td></td>';
+				echo '<td>';
+					if($row_data['USE_PER_SET']!=NULL&&$row_data['USE_PER_SET']!=0){
+						echo number_format(($row_data['W103_PC']/$row_data['USE_PER_SET']),2);
+					}
+				echo '</td>';
+				echo '<td>';
+					echo ($row_data['USE_PER_SET']==NULL)?"":number_format($row_data['USE_PER_SET'],2);
+				echo '</td>';
 			echo '</tr>';
 			$i++;
 		}
