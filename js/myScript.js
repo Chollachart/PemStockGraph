@@ -109,7 +109,7 @@ function get_itemcode_array(itemData){
       var arr_item_all = [];
       var arr_item = []; var arr_WH02 = []; var arr_W103 = []; var arr_USEPERSET = []; 
       itemData.forEach(function(element, index, array) {
-            arr_item.push(element['Itemcode']);
+            arr_item.push(element['Itemcode']+" ("+element['Description']+")");
             arr_USEPERSET.push(element['USE_PER_SET']);
             if(element['USE_PER_SET']!="0"&&element['USE_PER_SET']!=null){
               var WH02_SET = parseFloat(parseFloat(element['WH02_PC'])/parseFloat(element['USE_PER_SET']));

@@ -31,7 +31,7 @@ $query_string = "select tb.* from (SELECT
   group by g.artcode,i.[Description],i.packagedescription,i.[Class_02],i.Assortment
  
   ) tb 
-  where tb.USE_PER_SET IS NOT NULL
+  where tb.USE_PER_SET IS NOT NULL and tb.USE_PER_SET!=0
   order by tb.Itemcode";
 $params = NULL;  
 $arr_query = $obj_db->query_data($query_string,$params);
